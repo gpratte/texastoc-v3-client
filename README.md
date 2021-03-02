@@ -1,14 +1,10 @@
-# texastoc-v2-react-redux
+# texastoc-v3-client
 
-I am rewriting my poker league application from core Spring 3.x and JQuery mobile to Spring Boot and React/Redux.
+Writing the [texastoc-v2-react-redux](https://github.com/gpratte/texastoc-v2-react-redux) react/redux client to 
+make use of the new [texastoc-v3-modulith](https://github.com/gpratte/texastoc-v3-modulith)
+backend APIs.
 
-This is the beginning of writing a new front end using React and Redux.
-
-The following shows what I did step by step.
-
-Each step can be found on the corresponding branch.
-
-To see what was done on a branch compare the code to the previous branch.
+I will (hopefully) refactor this code to clean it up.
 
 # Profiles, Building and Running
 The urls for the client and server are defined in the constants.js file. Here is what they are set to when deploying to production.
@@ -64,5 +60,4 @@ Build the war for prod
 
 TODO the rest of the instructions to deploy to production
 
-## Current Branch: 55-unlock-game-from-season
-Unlock a game from the season summary and move to the game view.
+## Current Branch: 
