@@ -1,0 +1,21 @@
+language: java
+jdk: openjdk8
+sudo: false
+script: mvn clean install
+cache:
+  directories:
+    - $HOME/.m2
+
+install:
+  - mvn -N io.takari:maven:wrapper
+  - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: CpoiJUUTRHvQnD0BPUYockyUR4PbJTEHINrpt2PpvoDiIFmn+9IWguxjTVAPlBc/jcXspifEwEoqp2UN0AX/HC3oeRHp+/HepFsGeueTwuQrxQHMib/iJpt3OiEZ1ZVYZcwJJQHTNgRfmC8ONeqmDSWNWRCup6XFWL8U8JttV2taH56g8vB0A86rskPw3aaf1LJZG1XwulH2WQcV1AJO+/ScANuqPEpgH8AbOmZmabkOqkGcq5V8mCzp1sGxMLH3Er4ICpc40paRnXwsQ7l7Bbv9WucV3/bpbT9V/80mTjTAa3emHWJM0L0GlVb/KZFc0SIwFUR0ZCXOkgIhA7FVDaZItW3nM1VVAHgopYmblYQACzyROfUmqGK+Re7iTgvzsaAQnlegUJWnezR4952yg5Hx2oUtQfUYB9karfGAZK3kqr968MQZ8oLdLGW0WBoNvWisy3a4ZeRxg1pUpv9KZ50U8dISyhb+axOfcnqMBd6+InKLBqGhZoAIBthgulWGExHK0gW5K4yQKlde9OdcNAC7V8ty82licdg8w2szSxBsQPr5SMPh4m0n+U7X1715AzDODALiOU/bEJgFydlpDmuUp8l4laIyJ8leikQrkfRI9/IOMFYa7x2hAkvXuyXFcoZr66sE1mqBzpGnQC5IT6aFmZu82Hg3cOE1YCD9jpo=
+  app:
+    master: texastoc
+  skip_cleanup: true
+  run:
+    - restart
