@@ -184,13 +184,13 @@ export function getPoints(callback) {
     return;
   }
 
-  server.get('/api/v3/league/points', {
+  server.get('/api/v3/settings', {
     headers: {
       'Authorization': `Bearer ${token}`
     }
   })
     .then(result => {
-      callback(result.data);
+      callback(result.data.points);
     })
     .catch(function (error) {
       console.log(error.message ? error.message : error.toString());

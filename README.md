@@ -58,7 +58,5 @@ Build the war for prod
 
 TODO the rest of the instructions to deploy to production
 
-## Current Branch: 01-home-page
-Home page loads and
-* shows the proper version
-* does not show Game button because there is no current game
+## Current Branch: 02-points
+Get the points from the new v3/settings endpoint.
