@@ -18,7 +18,7 @@ export function addNewSeason(year) {
   const seasonStart = {};
   seasonStart['startYear'] = year;
 
-  server.post('/api/v2/seasons', seasonStart, {
+  server.post('/api/v3/seasons', seasonStart, {
     headers: {
       'Authorization': `Bearer ${token}`
     }
@@ -28,6 +28,7 @@ export function addNewSeason(year) {
       leagueStore.dispatch({type: REDIRECT, to: '/season'})
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       let message;
       if (error.response && error.response.status && error.response.status === 403) {
         message = "You are not authorized to create a season";
@@ -49,7 +50,7 @@ export function getCurrentSeason(token) {
     return;
   }
 
-  server.get('/api/v2/seasons/current', {
+  server.get('/api/v3/seasons/current', {
     headers: {
       'Authorization': `Bearer ${token}`
     }
@@ -59,6 +60,7 @@ export function getCurrentSeason(token) {
       leagueStore.dispatch({type: REFRESH, refresh: false})
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       leagueStore.dispatch({type: REFRESH, refresh: false})
       if (error.response && error.response.status && error.response.status === 404) {
         leagueStore.dispatch({type: SEASON_NOT_FOUND, flag: true})
@@ -77,7 +79,7 @@ export function finalize(seasonId) {
     return;
   }
 
-  server.put('/api/v2/seasons/' + seasonId, {}, {
+  server.put('/api/v3/seasons/' + seasonId, {}, {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/vnd.texastoc.finalize+json'
@@ -88,6 +90,7 @@ export function finalize(seasonId) {
       getCurrentSeason(token);
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       leagueStore.dispatch({type: API_ERROR, message: "Cannot end the season, try again later"})
     });
 }
@@ -102,7 +105,7 @@ export function unfinalize(seasonId) {
     return;
   }
 
-  server.put('/api/v2/seasons/' + seasonId, {}, {
+  server.put('/api/v3/seasons/' + seasonId, {}, {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/vnd.texastoc.unfinalize+json'
@@ -114,6 +117,7 @@ export function unfinalize(seasonId) {
       leagueStore.dispatch({type: REDIRECT, to: '/current-game'})
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       let message;
       if (error.response && error.response.status && error.response.status === 409) {
         message = "You cannot unlock a game when another game is unlocked";

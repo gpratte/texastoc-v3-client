@@ -1,10 +1,8 @@
 # texastoc-v3-client
 
-Writing the [texastoc-v2-react-redux](https://github.com/gpratte/texastoc-v2-react-redux) react/redux client to 
+Refactorin [texastoc-v2-react-redux](https://github.com/gpratte/texastoc-v2-react-redux) react/redux client to 
 make use of the new [texastoc-v3-modulith](https://github.com/gpratte/texastoc-v3-modulith)
 backend APIs.
-
-I will (hopefully) refactor this code to clean it up.
 
 # Profiles, Building and Running
 The urls for the client and server are defined in the constants.js file. Here is what they are set to when deploying to production.
@@ -60,4 +58,7 @@ Build the war for prod
 
 TODO the rest of the instructions to deploy to production
 
-## Current Branch: 
+## Current Branch: 01-home-page
+Home page loads and
+* shows the proper version
+* does not show Game button because there is no current game
