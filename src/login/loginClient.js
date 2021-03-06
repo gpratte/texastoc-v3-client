@@ -14,6 +14,7 @@ export function login(email, password) {
       refreshLeague(result.data.token);
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       leagueStore.dispatch({type: API_ERROR, message: error.toString()})
     }).finally(() => {
       leagueStore.dispatch({type: WAITING, flag: false})
@@ -30,6 +31,7 @@ export function forgot(email) {
       leagueStore.dispatch({type: REDIRECT, to: '/login/code'})
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       leagueStore.dispatch({type: API_ERROR, message: error.toString()})
     });
 }
@@ -44,6 +46,7 @@ export function resetPassword(code, password) {
       leagueStore.dispatch({type: REDIRECT, to: '/login'})
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       let message;
       if (error.response && error.response.status && error.response.status === 404) {
         message = "Code not found";

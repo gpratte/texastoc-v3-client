@@ -54,7 +54,7 @@ export function getPlayers(token) {
     return;
   }
 
-  server.get('/api/v2/players', {
+  server.get('/api/v3/players', {
     headers: {
       'Authorization': `Bearer ${token}`
     }
@@ -63,6 +63,7 @@ export function getPlayers(token) {
       leagueStore.dispatch({type: GOT_LEAGUE_PLAYERS, players: result.data})
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       leagueStore.dispatch({type: API_ERROR, message: (error.message ? error.message : error.toString())})
     });
 }
@@ -85,7 +86,7 @@ export function updatePlayer(playerId, firstName, lastName, phone, email, passwo
     password: password
   };
 
-  server.put('/api/v2/players/' + playerId, updatePlayerRequest, {
+  server.put('/api/v3/players/' + playerId, updatePlayerRequest, {
     headers: {
       'Authorization': `Bearer ${token}`
     }
@@ -94,6 +95,7 @@ export function updatePlayer(playerId, firstName, lastName, phone, email, passwo
       getPlayers(token);
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       let message;
       if (error.response && error.response.status && error.response.status === 403) {
         message = "You are not authorized to update the player";
@@ -126,25 +128,16 @@ export function checkDeployedVersion() {
   if (checkVersion) {
     leagueStore.dispatch({type: VERSION_CHECK})
 
-    let env;
-    const baseUrl = server.defaults.baseURL;
-    if (baseUrl.indexOf('localhost') !== -1) {
-      env = 'local';
-    } else if (baseUrl.indexOf('heroku') !== -1) {
-      env = 'heroku'
-    } else {
-      env = 'prod';
-    }
-
-    server.get('/api/v2/versions?env=' + env)
+    server.get('/api/v3/settings')
       .then(result => {
-        const externalVersion = '' + result.data;
+        const externalVersion = '' + result.data.version.version;
         if (VERSION !== externalVersion) {
           console.log('UI version ' + VERSION + ' is not equal to ' + externalVersion);
           leagueStore.dispatch({type: NEW_VERSION})
         }
       })
       .catch(function (error) {
+        console.log(error.message ? error.message : error.toString());
         // do nothing
       });
   }
@@ -167,7 +160,7 @@ export function getRounds(callback) {
     return;
   }
 
-  server.get('/api/v2/clock/rounds', {
+  server.get('/api/v3/clock/rounds', {
     headers: {
       'Authorization': `Bearer ${token}`
     }
@@ -176,6 +169,7 @@ export function getRounds(callback) {
       callback(result.data);
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       const message = error.message ? error.message : error.toString();
       leagueStore.dispatch({type: API_ERROR, message: message})
     });
@@ -190,7 +184,7 @@ export function getPoints(callback) {
     return;
   }
 
-  server.get('/api/v2/league/points', {
+  server.get('/api/v3/league/points', {
     headers: {
       'Authorization': `Bearer ${token}`
     }
@@ -199,6 +193,7 @@ export function getPoints(callback) {
       callback(result.data);
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       const message = error.message ? error.message : error.toString();
       leagueStore.dispatch({type: API_ERROR, message: message})
     });
@@ -213,7 +208,7 @@ export function deletePlayer(playerId) {
     return;
   }
 
-  server.delete('/api/v2/players/' + playerId, {
+  server.delete('/api/v3/players/' + playerId, {
     headers: {
       'Authorization': `Bearer ${token}`
     }
@@ -222,6 +217,7 @@ export function deletePlayer(playerId) {
       getPlayers(token);
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       let message;
       if (error.response && error.response.status && error.response.status === 403) {
         message = "You are not authorized to delete the player";

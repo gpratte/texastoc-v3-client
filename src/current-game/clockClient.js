@@ -6,7 +6,7 @@ export function getClock(callback) {
   const gameId = leagueStore.getState().game.data.id;
   const token = leagueStore.getState().token.token;
 
-  server.get('/api/v2/games/' + gameId + '/clock', {
+  server.get('/api/v3/games/' + gameId + '/clock', {
     headers: {
       'Authorization': `Bearer ${token}`
     }
@@ -15,6 +15,7 @@ export function getClock(callback) {
       callback(result.data);
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       const message = error.message ? error.message : error.toString();
       leagueStore.dispatch({type: API_ERROR, message: message})
     });
@@ -24,7 +25,7 @@ export function resume() {
   const gameId = leagueStore.getState().game.data.id;
   const token = leagueStore.getState().token.token;
 
-  server.post('/api/v2/games/' + gameId + '/clock', {}, {
+  server.post('/api/v3/games/' + gameId + '/clock', {}, {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/vnd.texastoc.clock-resume+json'
@@ -34,6 +35,7 @@ export function resume() {
       // do nothing
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       const message = error.message ? error.message : error.toString();
       leagueStore.dispatch({type: API_ERROR, message: message})
     });
@@ -43,7 +45,7 @@ export function pause() {
   const gameId = leagueStore.getState().game.data.id;
   const token = leagueStore.getState().token.token;
 
-  server.post('/api/v2/games/' + gameId + '/clock', {}, {
+  server.post('/api/v3/games/' + gameId + '/clock', {}, {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/vnd.texastoc.clock-pause+json'
@@ -53,6 +55,7 @@ export function pause() {
       // do nothing
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       const message = error.message ? error.message : error.toString();
       leagueStore.dispatch({type: API_ERROR, message: message})
     });
@@ -62,7 +65,7 @@ export function back() {
   const gameId = leagueStore.getState().game.data.id;
   const token = leagueStore.getState().token.token;
 
-  server.post('/api/v2/games/' + gameId + '/clock', {}, {
+  server.post('/api/v3/games/' + gameId + '/clock', {}, {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/vnd.texastoc.clock-back+json'
@@ -72,6 +75,7 @@ export function back() {
       // do nothing
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       const message = error.message ? error.message : error.toString();
       leagueStore.dispatch({type: API_ERROR, message: message})
     });
@@ -81,7 +85,7 @@ export function forward() {
   const gameId = leagueStore.getState().game.data.id;
   const token = leagueStore.getState().token.token;
 
-  server.post('/api/v2/games/' + gameId + '/clock', {}, {
+  server.post('/api/v3/games/' + gameId + '/clock', {}, {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/vnd.texastoc.clock-forward+json'
@@ -91,6 +95,7 @@ export function forward() {
       // do nothing
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       const message = error.message ? error.message : error.toString();
       leagueStore.dispatch({type: API_ERROR, message: message})
     });

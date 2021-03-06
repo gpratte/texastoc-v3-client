@@ -12,7 +12,7 @@ export function getPastSeasons(callback) {
     return;
   }
 
-  server.get('/api/v2/seasons/history', {
+  server.get('/api/v3/seasons/history', {
     headers: {
       'Authorization': `Bearer ${token}`
     }
@@ -21,6 +21,7 @@ export function getPastSeasons(callback) {
       callback(result.data);
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       const message = error.message ? error.message : error.toString();
       leagueStore.dispatch({type: API_ERROR, message: message})
     });

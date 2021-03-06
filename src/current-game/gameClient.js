@@ -29,7 +29,7 @@ export function addNewGame(month, day, year, hostId) {
   createGameRequest.date = year + '-' + month + '-' + day;
   createGameRequest.transportRequired = false;
 
-  server.post('/api/v2/games', createGameRequest, {
+  server.post('/api/v3/games', createGameRequest, {
     headers: {
       'Authorization': `Bearer ${token}`
     }
@@ -39,6 +39,7 @@ export function addNewGame(month, day, year, hostId) {
       leagueStore.dispatch({type: REDIRECT, to: '/current-game'})
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       let message;
       if (error.response && error.response.status && error.response.status === 403) {
         message = "You are not authorized to start a new game";
@@ -62,7 +63,7 @@ export function getCurrentGame(token) {
     return;
   }
 
-  server.get('/api/v2/games', {
+  server.get('/api/v3/games', {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/vnd.texastoc.current+json'
@@ -74,6 +75,7 @@ export function getCurrentGame(token) {
       leagueStore.dispatch({type: REFRESH, refresh: false})
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       leagueStore.dispatch({type: REFRESH, refresh: false})
       if (error.response && error.response.status && error.response.status === 404) {
         leagueStore.dispatch({type: CURRENT_GAME_NOT_FOUND, flag: true})
@@ -98,7 +100,7 @@ export function clearCacheCurrentGame() {
     return;
   }
 
-  server.get('/api/v2/games', {
+  server.get('/api/v3/games', {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/vnd.texastoc.clear-cache+json'
@@ -108,6 +110,7 @@ export function clearCacheCurrentGame() {
     .then(result => {
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
     });
 }
 
@@ -128,7 +131,7 @@ export function addExistingPlayer(playerId, buyIn, toc, qtoc) {
   createGamePlayerRequest.annualTocCollected = toc;
   createGamePlayerRequest.quarterlyTocCollected = qtoc;
 
-  server.post('/api/v2/games/' + gameId + '/players', createGamePlayerRequest, {
+  server.post('/api/v3/games/' + gameId + '/players', createGamePlayerRequest, {
     headers: {
       'Authorization': `Bearer ${token}`
     }
@@ -137,6 +140,7 @@ export function addExistingPlayer(playerId, buyIn, toc, qtoc) {
       getCurrentGame(token);
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       const message = error.message ? error.message : error.toString();
       leagueStore.dispatch({type: API_ERROR, message: message})
     });
@@ -161,7 +165,7 @@ export function addNewPlayer(firstName, lastName, email, buyIn, toc, qtoc) {
   firstTimeGamePlayer.annualTocCollected = toc;
   firstTimeGamePlayer.quarterlyTocCollected = qtoc;
 
-  server.post('/api/v2/games/' + gameId + '/players', firstTimeGamePlayer, {
+  server.post('/api/v3/games/' + gameId + '/players', firstTimeGamePlayer, {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/vnd.texastoc.new-player+json'
@@ -171,6 +175,7 @@ export function addNewPlayer(firstName, lastName, email, buyIn, toc, qtoc) {
       getCurrentGame(token);
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       const message = error.message ? error.message : error.toString();
       leagueStore.dispatch({type: API_ERROR, message: message})
     });
@@ -199,7 +204,7 @@ export function updatePlayer(gamePlayerId, buyIn, toc, qtoc, rebuy, place, knock
     chop: chop
   };
 
-  server.put('/api/v2/games/' + gameId + '/players/' + gamePlayerId, updateGamePlayerRequest, {
+  server.put('/api/v3/games/' + gameId + '/players/' + gamePlayerId, updateGamePlayerRequest, {
     headers: {
       'Authorization': `Bearer ${token}`
     }
@@ -208,6 +213,7 @@ export function updatePlayer(gamePlayerId, buyIn, toc, qtoc, rebuy, place, knock
       getCurrentGame(token);
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       let message;
       if (error.response && error.response.status && error.response.status === 409) {
         message = "Cannot change the game in any way after it has ended";
@@ -229,7 +235,7 @@ export function deletePlayer(gamePlayerId) {
 
   const gameId = leagueStore.getState().game.data.id;
 
-  server.delete('/api/v2/games/' + gameId + '/players/' + gamePlayerId, {
+  server.delete('/api/v3/games/' + gameId + '/players/' + gamePlayerId, {
     headers: {
       'Authorization': `Bearer ${token}`
     }
@@ -238,6 +244,7 @@ export function deletePlayer(gamePlayerId) {
       getCurrentGame(token);
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       let message;
       if (error.response && error.response.status && error.response.status === 409) {
         message = "Cannot change the game in any way after it has ended";
@@ -259,7 +266,7 @@ export function toggleKnockedOut(gamePlayerId) {
 
   const gameId = leagueStore.getState().game.data.id;
 
-  server.put('/api/v2/games/' + gameId + '/players/' + gamePlayerId, {}, {
+  server.put('/api/v3/games/' + gameId + '/players/' + gamePlayerId, {}, {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/vnd.texastoc.knockout+json'
@@ -269,6 +276,7 @@ export function toggleKnockedOut(gamePlayerId) {
       getCurrentGame(token);
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       const message = error.message ? error.message : error.toString();
       leagueStore.dispatch({type: API_ERROR, message: message})
     });
@@ -285,7 +293,7 @@ export function toggleRebuy(gamePlayerId) {
 
   const gameId = leagueStore.getState().game.data.id;
 
-  server.put('/api/v2/games/' + gameId + '/players/' + gamePlayerId, {}, {
+  server.put('/api/v3/games/' + gameId + '/players/' + gamePlayerId, {}, {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/vnd.texastoc.rebuy+json'
@@ -295,6 +303,7 @@ export function toggleRebuy(gamePlayerId) {
       getCurrentGame(token);
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       const message = error.message ? error.message : error.toString();
       leagueStore.dispatch({type: API_ERROR, message: message})
     });
@@ -315,7 +324,7 @@ export function seating(numSeatsPerTable, tableRequests) {
   seatingRequest.numSeatsPerTable = numSeatsPerTable;
   seatingRequest.tableRequests = tableRequests;
 
-  server.post('/api/v2/games/' + gameId + '/seats', seatingRequest, {
+  server.post('/api/v3/games/' + gameId + '/seats', seatingRequest, {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/vnd.texastoc.assign-seats+json'
@@ -326,6 +335,7 @@ export function seating(numSeatsPerTable, tableRequests) {
       getCurrentGame(token);
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       const message = error.message ? error.message : error.toString();
       leagueStore.dispatch({type: API_ERROR, message: message})
     });
@@ -342,7 +352,7 @@ export function notifySeating() {
 
   const gameId = leagueStore.getState().game.data.id;
 
-  server.post('/api/v2/games/' + gameId + '/seats', {}, {
+  server.post('/api/v3/games/' + gameId + '/seats', {}, {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/vnd.texastoc.notify-seats+json'
@@ -352,6 +362,7 @@ export function notifySeating() {
       leagueStore.dispatch({type: SEATING_NOTIFIED, flag: true})
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       const message = error.message ? error.message : error.toString();
       leagueStore.dispatch({type: API_ERROR, message: message})
     });
@@ -366,7 +377,7 @@ export function finalize(gameId) {
     return;
   }
 
-  server.put('/api/v2/games/' + gameId, {}, {
+  server.put('/api/v3/games/' + gameId, {}, {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/vnd.texastoc.finalize+json'
@@ -377,6 +388,7 @@ export function finalize(gameId) {
       getCurrentSeason(token);
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       const message = error.message ? error.message : error.toString();
       leagueStore.dispatch({type: API_ERROR, message: message})
     });
@@ -391,7 +403,7 @@ export function unfinalize(gameId) {
     return;
   }
 
-  server.put('/api/v2/games/' + gameId, {}, {
+  server.put('/api/v3/games/' + gameId, {}, {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/vnd.texastoc.unfinalize+json'
@@ -403,6 +415,7 @@ export function unfinalize(gameId) {
       leagueStore.dispatch({type: REDIRECT, to: '/current-game'})
     })
     .catch(function (error) {
+      console.log(error.message ? error.message : error.toString());
       let message;
       if (error.response && error.response.status && error.response.status === 403) {
         message = "You are not authorized to edit the game";
