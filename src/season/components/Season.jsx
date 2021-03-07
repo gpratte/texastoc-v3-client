@@ -10,7 +10,7 @@ import SeasonDetails from './SeasonDetails';
 import SeasonPayouts from './SeasonPayouts';
 import SeasonStandings from './SeasonStandings';
 import Quarters from './Quarters';
-import Games from './Games';
+//import Games from './Games';
 import {Link} from "react-router-dom";
 import leagueStore from "../../league/leagueStore";
 import {GETTING_SEASON} from "../seasonActions";
