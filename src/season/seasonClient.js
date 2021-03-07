@@ -4,8 +4,8 @@ import leagueStore from "../league/leagueStore";
 import {API_ERROR, REDIRECT, REFRESH} from "../league/leagueActions";
 import {ADDED_NEW_SEASON, GOT_SEASON, SEASON_NOT_FOUND} from './seasonActions'
 import {getCurrentGame} from "../current-game/gameClient";
-import {getQuarterlySeasons} from "./quarterlySeasonClient";
-
+import {getQuarterlySeasons} from "./seasonQuartersClient";
+import {getSeasonGames} from "./seasonGamesClient"
 
 export function addNewSeason(year) {
   if (!leagueStore.getState().token) {
@@ -90,6 +90,7 @@ export function finalize(seasonId) {
       getCurrentGame(token);
       getCurrentSeason(token);
       getQuarterlySeasons(token);
+      getSeasonGames(token);
     })
     .catch(function (error) {
       console.log(error.message ? error.message : error.toString());
@@ -117,6 +118,7 @@ export function unfinalize(seasonId) {
       getCurrentGame(token);
       getCurrentSeason(token);
       getQuarterlySeasons(token);
+      getSeasonGames(token);
       leagueStore.dispatch({type: REDIRECT, to: '/current-game'})
     })
     .catch(function (error) {
