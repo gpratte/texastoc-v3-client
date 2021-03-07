@@ -12,10 +12,17 @@ export const seed = {
     gettingCurrentGame: false,
     currentGameNotFound: false
   },
+  seasonId: null,
   season: {
     data: null,
     gettingSeason: false,
     seasonNotFound: false
+  },
+  quarterlySeasons: {
+    data: null
+  },
+  games: {
+    data: null
   },
   token: null,
   apiError: null

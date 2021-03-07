@@ -1,6 +1,6 @@
 # texastoc-v3-client
 
-Refactorin [texastoc-v2-react-redux](https://github.com/gpratte/texastoc-v2-react-redux) react/redux client to 
+Refactorin [texastoc-v2-react-redux](https://github.com/gpratte/texastoc-v2-react-redux) react/redux client to
 make use of the new [texastoc-v3-modulith](https://github.com/gpratte/texastoc-v3-modulith)
 backend APIs.
 
@@ -58,5 +58,5 @@ Build the war for prod
 
 TODO the rest of the instructions to deploy to production
 
-## Current Branch: 02-points
-Get the points from the new v3/settings endpoint.
+## Current Branch: 03-create-season
+Create the season and show the quarterly seasons

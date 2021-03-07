@@ -7,6 +7,7 @@ import {API_ERROR,
   VERSION_CHECK,
   NEW_VERSION} from "./leagueActions";
 import {getCurrentSeason} from "../season/seasonClient";
+import {getQuarterlySeasons} from "../season/quarterlySeasonClient";
 import {GETTING_SEASON} from "../season/seasonActions";
 import {clearCacheCurrentGame, getCurrentGame} from "../current-game/gameClient";
 import {VERSION} from '../utils/constants'
@@ -39,6 +40,7 @@ export function refreshLeague(token) {
   leagueStore.dispatch({type: GETTING_SEASON, flag: true})
   getPlayers(token);
   getCurrentSeason(token);
+  getQuarterlySeasons(token);
   getCurrentGame(token);
   clearCacheCurrentGame();
 }
