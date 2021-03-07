@@ -1,5 +1,6 @@
 import currentGameReducer from '../current-game/currentGameReducer'
 import seasonReducer from '../season/seasonReducer'
+import quarterlySeasonsReducer from '../season/quarterlySeasonReducer'
 import loginReducer from '../login/loginReducer'
 import {seed} from "../league/leagueStore";
 import {API_ERROR,
@@ -37,7 +38,8 @@ function leagueReducer(league, action) {
         {apiError: null},
         {token: loginReducer(league.token, action)},
         {game: currentGameReducer(league.game, action)},
-        {season: seasonReducer(league.season, action)});
+        {season: seasonReducer(league.season, action)},
+        {quarterlySeasons: quarterlySeasonsReducer(league.quarterlySeasons, action)});
   }
 }
 

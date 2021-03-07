@@ -15,6 +15,7 @@ import {Link} from "react-router-dom";
 import leagueStore from "../../league/leagueStore";
 import {GETTING_SEASON} from "../seasonActions";
 import {getCurrentSeason} from "../seasonClient";
+import {getQuarterlySeasons} from "../quarterlySeasonClient";
 import {redirect, shouldRedirect} from "../../utils/util";
 import {numGuarenteedPayouts} from '../../utils/util';
 import Finalize from "./Finalize";
@@ -30,12 +31,14 @@ class Season extends React.Component {
     if (shouldInitialize) {
       leagueStore.dispatch({type: GETTING_SEASON, flag: true})
       getCurrentSeason(league.token.token);
+      getQuarterlySeasons(league.token.token);
     }
   }
 
   componentDidMount() {
     leagueStore.dispatch({type: GETTING_SEASON, flag: true})
     getCurrentSeason();
+    getQuarterlySeasons()
   }
 
   componentDidUpdate() {
@@ -78,6 +81,7 @@ class Season extends React.Component {
     const startDate = moment(season.start).tz('America/Chicago').format('YYYY');
     const endDate = moment(season.end).tz('America/Chicago').format('YYYY');
     const numGuarenteed = numGuarenteedPayouts(season);
+    const quarterlySeasons = league.quarterlySeasons.data;
 
     return (
       <div>
@@ -108,12 +112,15 @@ class Season extends React.Component {
         }
 
         <Tabs className="style1" defaultActiveKey="profile" id="uncontrolled-tab-example">
-          <Tab className="style2" eventKey="quarters" title="&nbsp;&nbsp;&nbsp;Quarters&nbsp;&nbsp;&nbsp;">
-            <Quarters value={season.quarterlySeasons}/>
-          </Tab>
-          <Tab className="style2" eventKey="games" title="&nbsp;&nbsp;&nbsp;Games&nbsp;&nbsp;&nbsp;">
-            <Games value={season.games}/>
-          </Tab>
+          {
+            quarterlySeasons &&
+            <Tab className="style2" eventKey="quarters" title="&nbsp;&nbsp;&nbsp;Quarters&nbsp;&nbsp;&nbsp;">
+              <Quarters value={quarterlySeasons}/>
+            </Tab>
+          }
+          {/*<Tab className="style2" eventKey="games" title="&nbsp;&nbsp;&nbsp;Games&nbsp;&nbsp;&nbsp;">*/}
+          {/*  <Games value={season.games}/>*/}
+          {/*</Tab>*/}
         </Tabs>
         <Finalize seasonId={season.id} finalized={season.finalized}/>
       </div>

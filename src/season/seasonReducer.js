@@ -12,7 +12,7 @@ function seasonReducer(season, action) {
     case GOT_SEASON:
       return Object.assign({}, season, {data: action.season}, {gettingSeason: false}, {seasonNotFound: false});
     case GETTING_SEASON:
-      return Object.assign({}, season, {data: null}, {gettingSeason: true}, {seasonNotFound: false});
+      return Object.assign({}, season, {gettingSeason: true}, {seasonNotFound: false});
     case SEASON_NOT_FOUND:
       return Object.assign({}, season, {data: null}, {gettingSeason: false}, {seasonNotFound: true});
     default:
