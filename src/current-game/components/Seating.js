@@ -28,7 +28,7 @@ class Seating extends React.Component {
 
   render() {
     const game = this.props.game;
-    const {tables} = game.data.seating;
+    const tables = game.data.seating && game.data.seating.tables ? game.data.seating.tables: null;
     const isSeated = tables && tables.length > 0 && tables[0].seats && tables[0].seats.length > 0;
     const isNotified = game.seatingNotified;
     return (
