@@ -18,17 +18,18 @@ class GameStandings extends React.Component {
     if (players) {
       return players.map((player, index) => {
         const {
-          id, name, buyInCollected, rebuyAddOnCollected, annualTocCollected,
-          quarterlyTocCollected, chop, points, place
+          id, name, boughtIn, rebought, annualTocParticipant,
+          quarterlyTocParticipant, chop, tocPoints, qtocPoints, place
         } = player;
+        let points = tocPoints ? tocPoints : qtocPoints ? qtocPoints : null;
         return (
           <tr key={id}>
             <td>{place}</td>
             <td>{name}</td>
-            <td>{buyInCollected ? String.fromCharCode(10004) : ''}</td>
-            <td>{rebuyAddOnCollected ? String.fromCharCode(10004) : ''}</td>
-            <td>{annualTocCollected ? String.fromCharCode(10004) : ''}</td>
-            <td>{quarterlyTocCollected ? String.fromCharCode(10004) : ''}</td>
+            <td>{boughtIn ? String.fromCharCode(10004) : ''}</td>
+            <td>{rebought ? String.fromCharCode(10004) : ''}</td>
+            <td>{annualTocParticipant ? String.fromCharCode(10004) : ''}</td>
+            <td>{quarterlyTocParticipant ? String.fromCharCode(10004) : ''}</td>
             {
               isChop && <td>{chop ? chop : ''}</td>
             }

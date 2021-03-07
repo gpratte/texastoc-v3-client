@@ -58,5 +58,5 @@ Build the war for prod
 
 TODO the rest of the instructions to deploy to production
 
-## Current Branch: 03-create-season
-Create the season and show the quarterly seasons
+## Current Branch: 04-season-games
+Show the games of a season with the game players sorted by place then name.
