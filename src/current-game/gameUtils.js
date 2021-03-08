@@ -22,7 +22,7 @@ export function gameOver(gamePlayers) {
 export function generateEmptySeating() {
 
   return {
-    "seatsPerTable" : [
+    "seatsPerTables" : [
       {
         "numSeats":10,
         "tableNum":1
