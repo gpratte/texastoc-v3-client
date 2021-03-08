@@ -58,5 +58,5 @@ Build the war for prod
 
 TODO the rest of the instructions to deploy to production
 
-## Current Branch: 04-season-games
-Show the games of a season with the game players sorted by place then name.
+## Current Branch: 05-game-seating
+The data structure for seating changed quite a bit from version 2 to this version (version 3). Had to make the corresponding changes in the UI to get the seating components to work properly.

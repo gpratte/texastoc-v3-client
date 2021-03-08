@@ -18,3 +18,17 @@ export function gameOver(gamePlayers) {
 
   return places === numPlaces;
 }
+
+export function generateEmptySeating() {
+
+  return {
+    "seatsPerTables" : [
+      {
+        "numSeats":10,
+        "tableNum":1
+      }
+    ],
+    "tableRequests": [],
+    "gameTables": null
+  }
+}

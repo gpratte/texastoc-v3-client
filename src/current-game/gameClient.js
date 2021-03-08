@@ -124,14 +124,14 @@ export function addExistingPlayer(playerId, buyIn, toc, qtoc) {
   }
 
   const gameId = leagueStore.getState().game.data.id;
-  let createGamePlayerRequest = {};
-  createGamePlayerRequest.gameId = parseInt('' + gameId);
-  createGamePlayerRequest.playerId = parseInt('' + playerId);
-  createGamePlayerRequest.buyInCollected = buyIn;
-  createGamePlayerRequest.annualTocCollected = toc;
-  createGamePlayerRequest.quarterlyTocCollected = qtoc;
+  let gamePlayer = {};
+  gamePlayer.gameId = parseInt('' + gameId);
+  gamePlayer.playerId = parseInt('' + playerId);
+  gamePlayer.boughtIn = buyIn;
+  gamePlayer.annualTocParticipant = toc;
+  gamePlayer.quarterlyTocParticipant = qtoc;
 
-  server.post('/api/v3/games/' + gameId + '/players', createGamePlayerRequest, {
+  server.post('/api/v3/games/' + gameId + '/players', gamePlayer, {
     headers: {
       'Authorization': `Bearer ${token}`
     }
@@ -309,7 +309,7 @@ export function toggleRebuy(gamePlayerId) {
     });
 }
 
-export function seating(numSeatsPerTable, tableRequests) {
+export function seating(seatsPerTable, tableRequests) {
   if (!leagueStore.getState().token) {
     return;
   }
@@ -318,13 +318,19 @@ export function seating(numSeatsPerTable, tableRequests) {
     return;
   }
 
-  const gameId = leagueStore.getState().game.data.id;
-  let seatingRequest = {};
-  seatingRequest.gameId = parseInt('' + gameId);
-  seatingRequest.numSeatsPerTable = numSeatsPerTable;
-  seatingRequest.tableRequests = tableRequests;
+  if (seatsPerTable) {
+    for (let i = 0; i < seatsPerTable.length; i++) {
+        seatsPerTable[i].tableNum = i+1;
+    }
+  }
 
-  server.post('/api/v3/games/' + gameId + '/seats', seatingRequest, {
+  const gameId = leagueStore.getState().game.data.id;
+  let seating = {};
+  seating.gameId = parseInt('' + gameId);
+  seating.seatsPerTables = seatsPerTable;
+  seating.tableRequests = tableRequests;
+
+  server.post('/api/v3/games/' + gameId + '/seats', seating, {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/vnd.texastoc.assign-seats+json'
@@ -355,7 +361,7 @@ export function notifySeating() {
   server.post('/api/v3/games/' + gameId + '/seats', {}, {
     headers: {
       'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/vnd.texastoc.notify-seats+json'
+      'Content-Type': 'application/vnd.texastoc.notify-seating+json'
     }
   })
     .then(result => {

@@ -17,16 +17,16 @@ class SeatingSeatsPerTable extends React.Component {
     })
   }
 
-  renderSeatsPerTable(numSeatsPerTable, renderNumberOfSeatsPerTable, handleChangeSeatsPerTables) {
-    return _.map(numSeatsPerTable, function (numSeats, index) {
+  renderSeatsPerTable(seatsPerTables, renderNumberOfSeatsPerTable, handleChangeSeatsPerTable) {
+    return _.map(seatsPerTables, function (seats, index) {
       return (
         <Form.Group key={index} as={Row} className="align-items-center">
           <Form.Label>&nbsp;&nbsp;Seats for Table {index + 1}</Form.Label>
           <Col>
             <Form.Control as="select"
-                          defaultValue={numSeats}
+                          defaultValue={seats.numSeats}
                           id={'seatsId-' + index}
-                          onChange={(e) => handleChangeSeatsPerTables(e, index)}>
+                          onChange={(e) => handleChangeSeatsPerTable(e, index)}>
               {renderNumberOfSeatsPerTable()}
             </Form.Control>
           </Col>
@@ -36,11 +36,11 @@ class SeatingSeatsPerTable extends React.Component {
   }
 
   render() {
-    const {numSeatsPerTable} = this.props.seating;
+    const {seatsPerTables} = this.props.seating;
 
     return (
       <div>
-        {this.renderSeatsPerTable(numSeatsPerTable, this.renderNumberOfSeatsPerTable, this.props.handleChangeSeatsPerTables)}
+        {this.renderSeatsPerTable(seatsPerTables, this.renderNumberOfSeatsPerTable, this.props.handleChangeSeatsPerTable)}
       </div>
     );
   }
