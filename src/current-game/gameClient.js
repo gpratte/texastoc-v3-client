@@ -361,7 +361,7 @@ export function notifySeating() {
   server.post('/api/v3/games/' + gameId + '/seats', {}, {
     headers: {
       'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/vnd.texastoc.notify-seats+json'
+      'Content-Type': 'application/vnd.texastoc.notify-seating+json'
     }
   })
     .then(result => {
