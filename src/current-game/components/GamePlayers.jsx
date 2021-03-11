@@ -54,8 +54,19 @@ class GamePlayers extends React.Component {
     return gamePlayers.map((gamePlayer, index) => {
       const {
         id, name, boughtIn, rebought, annualTocParticipant,
-        quarterlyTocParticipant, chop, points, place, knockedOut, roundUpdates
+        quarterlyTocParticipant, chop, tocPoints, tocChopPoints,
+        qtocPoints, qtocChopPoints, place, knockedOut, roundUpdates
       } = gamePlayer;
+      let points;
+      if (tocChopPoints) {
+        points = tocChopPoints;
+      } else if (qtocChopPoints) {
+        points = qtocChopPoints;
+      } else if (tocPoints) {
+        points = tocPoints;
+      } else if (qtocPoints) {
+        points = qtocPoints;
+      }
       return (
         <tr key={id}>
           {

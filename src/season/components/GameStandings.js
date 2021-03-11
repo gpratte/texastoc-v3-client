@@ -19,9 +19,19 @@ class GameStandings extends React.Component {
       return players.map((player, index) => {
         const {
           id, name, boughtIn, rebought, annualTocParticipant,
-          quarterlyTocParticipant, chop, tocPoints, qtocPoints, place
+          quarterlyTocParticipant, chop, tocPoints, tocChopPoints,
+          qtocPoints, qtocChopPoints, place
         } = player;
-        let points = tocPoints ? tocPoints : qtocPoints ? qtocPoints : null;
+        let points;
+        if (tocChopPoints) {
+          points = tocChopPoints;
+        } else if (qtocChopPoints) {
+          points = qtocChopPoints;
+        } else if (tocPoints) {
+          points = tocPoints;
+        } else if (qtocPoints) {
+          points = qtocPoints;
+        }
         return (
           <tr key={id}>
             <td>{place}</td>
