@@ -53,8 +53,8 @@ class GamePlayers extends React.Component {
     }
     return gamePlayers.map((gamePlayer, index) => {
       const {
-        id, name, buyInCollected, rebuyAddOnCollected, annualTocCollected,
-        quarterlyTocCollected, chop, points, place, knockedOut, roundUpdates
+        id, name, boughtIn, rebought, annualTocParticipant,
+        quarterlyTocParticipant, chop, points, place, knockedOut, roundUpdates
       } = gamePlayer;
       return (
         <tr key={id}>
@@ -73,21 +73,21 @@ class GamePlayers extends React.Component {
               {name ? name : 'unknown'}
             </Button>
           </td>
-          <td>{buyInCollected ? String.fromCharCode(10004) : ''}</td>
+          <td>{boughtIn ? String.fromCharCode(10004) : ''}</td>
           <td>
             {
               (isGameOver || !canRebuy) &&
-              rebuyAddOnCollected ? String.fromCharCode(10004) : ''
+              rebought ? String.fromCharCode(10004) : ''
             }
             {
               (!isGameOver && canRebuy) &&
               <Button variant="link" onClick={() => {this.toggleRebuy(id);}}>
-                {rebuyAddOnCollected ? String.fromCharCode(10004) : String.fromCharCode(248)}
+                {rebought ? String.fromCharCode(10004) : String.fromCharCode(248)}
               </Button>
             }
           </td>
-          <td>{annualTocCollected ? String.fromCharCode(10004) : ''}</td>
-          <td>{quarterlyTocCollected ? String.fromCharCode(10004) : ''}</td>
+          <td>{annualTocParticipant ? String.fromCharCode(10004) : ''}</td>
+          <td>{quarterlyTocParticipant ? String.fromCharCode(10004) : ''}</td>
           {
             isChop && <td>{chop ? chop : ''}</td>
           }
