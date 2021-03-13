@@ -58,5 +58,7 @@ Build the war for prod
 
 TODO the rest of the instructions to deploy to production
 
-## Current Branch: 06-game-players
-Most of the changes are using the more granular fields for points (e.g. tocPoints, qtocPoints, ...)
+## Current Branch: 07-play-games
+Played a game and checked the UI for anomalies. Changed the fields when
+showing the seating to match the fields returned by the server.
+ 
