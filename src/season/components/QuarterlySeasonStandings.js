@@ -1,7 +1,7 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table';
 
-class Standings extends React.Component {
+class QuarterlySeasonStandings extends React.Component {
 
   renderStandings(players, hideEntries) {
     if (players) {
@@ -41,4 +41,4 @@ class Standings extends React.Component {
   }
 }
 
-export default Standings
+export default QuarterlySeasonStandings

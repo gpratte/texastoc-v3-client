@@ -31,7 +31,8 @@ export function addNewGame(month, day, year, hostId) {
 
   server.post('/api/v3/games', createGameRequest, {
     headers: {
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
     }
   })
     .then(result => {
@@ -133,7 +134,8 @@ export function addExistingPlayer(playerId, buyIn, toc, qtoc) {
 
   server.post('/api/v3/games/' + gameId + '/players', gamePlayer, {
     headers: {
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
     }
   })
     .then(result => {
@@ -161,14 +163,14 @@ export function addNewPlayer(firstName, lastName, email, buyIn, toc, qtoc) {
   firstTimeGamePlayer.firstName = firstName ? firstName : null;
   firstTimeGamePlayer.lastName = lastName ? lastName : null;
   firstTimeGamePlayer.email = email ? email : null;
-  firstTimeGamePlayer.buyInCollected = buyIn;
-  firstTimeGamePlayer.annualTocCollected = toc;
-  firstTimeGamePlayer.quarterlyTocCollected = qtoc;
+  firstTimeGamePlayer.boughtIn = buyIn;
+  firstTimeGamePlayer.annualTocParticipant = toc;
+  firstTimeGamePlayer.quarterlyTocParticipant = qtoc;
 
   server.post('/api/v3/games/' + gameId + '/players', firstTimeGamePlayer, {
     headers: {
       'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/vnd.texastoc.new-player+json'
+      'Content-Type': 'application/vnd.texastoc.first-time+json'
     }
   })
     .then(result => {
@@ -194,19 +196,20 @@ export function updatePlayer(gamePlayerId, buyIn, toc, qtoc, rebuy, place, knock
   const updateGamePlayerRequest = {
     gamePlayerId: parseInt('' + gamePlayerId),
     gameId: gameId,
-    buyInCollected: buyIn,
-    annualTocCollected: toc,
-    quarterlyTocCollected: qtoc,
-    rebuyAddOnCollected: rebuy,
+    boughtIn: buyIn,
+    annualTocParticipant: toc,
+    quarterlyTocParticipant: qtoc,
+    rebought: rebuy,
     place: place,
     knockedOut: knockedOut,
     roundUpdates: clockAlert,
     chop: chop
   };
 
-  server.put('/api/v3/games/' + gameId + '/players/' + gamePlayerId, updateGamePlayerRequest, {
+  server.patch('/api/v3/games/' + gameId + '/players/' + gamePlayerId, updateGamePlayerRequest, {
     headers: {
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
     }
   })
     .then(result => {
@@ -237,7 +240,8 @@ export function deletePlayer(gamePlayerId) {
 
   server.delete('/api/v3/games/' + gameId + '/players/' + gamePlayerId, {
     headers: {
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
     }
   })
     .then(result => {

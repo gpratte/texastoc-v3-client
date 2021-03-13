@@ -83,25 +83,25 @@ class EditGamePlayer extends React.Component {
                             type={'checkbox'}
                             id={'buyInId'}
                             label={'Buy-In'}
-                            defaultChecked={gamePlayer ? (gamePlayer.buyInCollected ? true : false) : false}
+                            defaultChecked={gamePlayer ? (gamePlayer.boughtIn ? true : false) : false}
                 />
                 <Form.Check inline
                             type={'checkbox'}
                             id={'rebuyId'}
                             label={'Rebuy'}
-                            defaultChecked={gamePlayer ? (gamePlayer.rebuyAddOnCollected ? true : false) : false}
+                            defaultChecked={gamePlayer ? (gamePlayer.rebought ? true : false) : false}
                 />
                 <Form.Check inline
                             type={'checkbox'}
                             id={'tocId'}
                             label={'Annual TOC'}
-                            defaultChecked={gamePlayer ? (gamePlayer.annualTocCollected ? true : false) : false}
+                            defaultChecked={gamePlayer ? (gamePlayer.annualTocParticipant ? true : false) : false}
                 />
                 <Form.Check inline
                             type={'checkbox'}
                             id={'qtocId'}
                             label={'Quarterly TOC'}
-                            defaultChecked={gamePlayer ? (gamePlayer.quarterlyTocCollected ? true : false) : false}
+                            defaultChecked={gamePlayer ? (gamePlayer.quarterlyTocParticipant ? true : false) : false}
                 />
               </Form.Group>
               <Form.Group>
