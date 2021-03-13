@@ -58,5 +58,5 @@ Build the war for prod
 
 TODO the rest of the instructions to deploy to production
 
-## Current Branch: 05-game-seating
-The data structure for seating changed quite a bit from version 2 to this version (version 3). Had to make the corresponding changes in the UI to get the seating components to work properly.
+## Current Branch: 06-game-players
+Most of the changes are using the more granular fields for points (e.g. tocPoints, qtocPoints, ...)
