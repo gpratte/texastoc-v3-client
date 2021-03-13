@@ -2,7 +2,7 @@ import React from 'react'
 import moment from 'moment-timezone'
 import Table from 'react-bootstrap/Table';
 import Payouts from './Payouts'
-import Standings from "./Standings";
+import QuarterlySeasonStandings from "./QuarterlySeasonStandings";
 
 class QuarterlySeason extends React.Component {
 
@@ -35,7 +35,7 @@ class QuarterlySeason extends React.Component {
           </tbody>
         </Table>
 
-        <Standings value={ {players:players} }/>
+        <QuarterlySeasonStandings value={ {players:players} }/>
 
         <Payouts value={payouts}/>
       </div>
