@@ -15,11 +15,11 @@ class Seating extends React.Component {
     );
     const seatsWithPlayer = filter(seats, (seat) => seat.gamePlayerId)
     return map(seatsWithPlayer, (seat, index) => {
-      const {seatNumber, tableNumber, gamePlayerName} = seat;
+      const {seatNum, tableNum, gamePlayerName} = seat;
       return (
         <tr key={index}>
-          <td>{tableNumber}</td>
-          <td>{seatNumber}</td>
+          <td>{tableNum}</td>
+          <td>{seatNum}</td>
           <td>{gamePlayerName}</td>
         </tr>
       )
