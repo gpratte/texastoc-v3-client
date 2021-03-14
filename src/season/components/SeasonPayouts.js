@@ -6,16 +6,16 @@ class Payouts extends React.Component {
   renderPayouts(payouts) {
     if (payouts) {
       return payouts.map((payout, index) => {
-        const {id, guarenteed, cash, place, amount} = payout
+        const {id, guaranteed, cash, place, amount} = payout
         return (
           <tr key={id}>
             <td>{place}</td>
             <td>${amount}</td>
             {
-              guarenteed && <td>{String.fromCharCode(10004)}</td>
+              guaranteed && <td>{String.fromCharCode(10004)}</td>
             }
             {
-              !guarenteed && <td></td>
+              !guaranteed && <td></td>
             }
             {
               cash && <td>{String.fromCharCode(10004)}</td>
