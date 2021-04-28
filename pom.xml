@@ -211,7 +211,7 @@
                         <configuration>
                             <environmentVariables>
                                 <PUBLIC_URL>https://texastoc.com</PUBLIC_URL>
-<!--                                <REACT_APP_ROUTER_BASE>/${project.artifactId}</REACT_APP_ROUTER_BASE>-->
+<!--                                <PUBLIC_URL>https://davebpoker.com</PUBLIC_URL>-->
                             </environmentVariables>
                         </configuration>
                     </plugin>
