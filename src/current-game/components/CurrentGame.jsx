@@ -7,7 +7,7 @@ import Spinner from "react-bootstrap/Spinner";
 import {Link} from 'react-router-dom';
 import Details from './Details'
 import GamePlayers from './GamePlayers'
-import ClockWebSocket from './ClockWebSocket'
+import ClockPolling from './ClockPolling'
 import Seating from './Seating'
 import Finalize from './Finalize'
 import leagueStore from "../../league/leagueStore";
@@ -164,7 +164,7 @@ class CurrentGame extends React.Component {
 
         {
           !isGameOver &&
-          <ClockWebSocket game={game}/>
+          <ClockPolling game={game}/>
         }
 
         {/* TODO <GamePlayersRemaining game={game}/>*/}
