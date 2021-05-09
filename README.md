@@ -58,7 +58,5 @@ Build the war for prod
 
 TODO the rest of the instructions to deploy to production
 
-## Current Branch: 07-play-games
-Played a game and checked the UI for anomalies. Changed the fields when
-showing the seating to match the fields returned by the server.
- 
+## Current Branch: 08-clock-polling
+Moved back to polling the clock instead of web socket communication.
