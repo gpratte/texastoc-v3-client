@@ -58,5 +58,5 @@ Build the war for prod
 
 TODO the rest of the instructions to deploy to production
 
-## Current Branch: 08-clock-polling
-Moved back to polling the clock instead of web socket communication.
+## Current Branch: 09-show-both-the-original-and-chopped-payouts-points
+Show the original payouts/points with strikethrough and the chopped payouts/points
