@@ -57,11 +57,14 @@ class GamePlayers extends React.Component {
         quarterlyTocParticipant, chop, tocPoints, tocChopPoints,
         qtocPoints, qtocChopPoints, place, knockedOut, roundUpdates
       } = gamePlayer;
+      let originalPoints;
       let points;
       if (tocChopPoints) {
         points = tocChopPoints;
+        originalPoints = tocPoints;
       } else if (qtocChopPoints) {
         points = qtocChopPoints;
+        originalPoints = qtocPoints;
       } else if (tocPoints) {
         points = tocPoints;
       } else if (qtocPoints) {
@@ -102,7 +105,12 @@ class GamePlayers extends React.Component {
           {
             isChop && <td>{chop ? chop : ''}</td>
           }
-          <td>{points ? points : ''}</td>
+          {
+            originalPoints && <td><del>{originalPoints}</del> {points}</td>
+          }
+          {
+            !originalPoints && <td>{points ? points : ''}</td>
+          }
         </tr>
       )
     })

@@ -6,11 +6,18 @@ class Payouts extends React.Component {
   renderPayouts(payouts) {
     if (payouts) {
       return payouts.map((payout, index) => {
-        const {id, place, amount} = payout
+        const {id, place, amount, chopAmount} = payout
         return (
           <tr key={id}>
             <td>{place}</td>
-            <td>${amount}</td>
+            {
+              chopAmount &&
+              <td><del>${amount}</del> ${chopAmount}</td>
+            }
+            {
+              !chopAmount &&
+              <td>${amount}</td>
+            }
           </tr>
         )
       })
